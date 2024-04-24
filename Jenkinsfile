@@ -4,8 +4,8 @@ pipeline {
     
     environment {
         dockerHubCredentialsID	            = 'DockerHub'  		    			      // DockerHub credentials ID.
-        imageName   		            = 'alikhames/nti-python-app'     			// DockerHub repo/image name.
-	    k8sCredentialsID	            = 'kubernetes'	    				     // KubeConfig credentials ID.    
+        imageName   		            = 'MoYousry510/nti-python-app'     			// DockerHub repo/image name.
+	    k8sCredentialsID	            = 'Kube_Jenkins'	    				     // KubeConfig credentials ID.    
     }
     
     stages {       
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                  	
-                 		buildDockerImage("${imageName}")
+                 buildDockerImage("${imageName}")
                       
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                  	
-                 		pushDockerImage("${dockerHubCredentialsID}", "${imageName}")
+                 pushDockerImage("${dockerHubCredentialsID}", "${imageName}")
                       
                 }
             }
@@ -32,8 +32,8 @@ pipeline {
         stage('Edit new image in deployment.yaml file') {
             steps {
                 script { 
-                	dir('k8s') {
-				        editNewImage("${imageName}")
+                dir('k8s') {
+			editNewImage("${imageName}")
 			}
                 }
             }
